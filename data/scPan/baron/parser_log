@@ -1,0 +1,16 @@
+['./RAW/GSM2230757_human1_umifm_counts.csv', './RAW/GSM2230758_human2_umifm_counts.csv', './RAW/GSM2230759_human3_umifm_counts.csv', './RAW/GSM2230760_human4_umifm_counts.csv']
+{'alpha', 'ductal', 'schwann', 'acinar', 't_cell', 'mast', 'epsilon', 'beta', 'macrophage', 'gamma', 'delta', 'quiescent_stellate', 'endothelial', 'activated_stellate'}
+alpha (2326, 20127)
+ductal (1077, 20127)
+schwann (13, 20127)
+acinar (958, 20127)
+t_cell (7, 20127)
+mast (25, 20127)
+epsilon (18, 20127)
+beta (2525, 20127)
+macrophage (55, 20127)
+gamma (255, 20127)
+delta (601, 20127)
+quiescent_stellate (173, 20127)
+endothelial (252, 20127)
+activated_stellate (284, 20127)
