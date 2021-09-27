@@ -75,14 +75,14 @@ def get_parser():
                         default = 'networks/relation_network',
                         help='filename for relation network')
 
-    parser.add_argument('-test1', '--t1',
+    parser.add_argument('-sp_sp', '--split_sample',
                         type=int,
-                        help='test 1',
+                        help='Use small subset of data (~ number of sample)',
                         default=15)
 
-    parser.add_argument('-test2', '--t2',
+    parser.add_argument('-sp_cl', '--split_class',
                         type=int,
-                        help='test 2',
+                        help='Use small subset of data (~ number of class)',
                         default=10)
   
     parser.add_argument('-seed', '--manual_seed',

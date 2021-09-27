@@ -2,6 +2,7 @@ import numpy as np
 import scipy as sp
 import pandas as pd
 import scipy.stats
+import scanpy
 import csv
 import glob
 import random
@@ -14,7 +15,62 @@ predefined_col_order = "./data/col_index"
 string_gene_list_pwd = "./data/genesort_string_hit.txt"
 # ->
 
-def sample_test_split(geo, num_of_class_test, num_of_example, num_of_testing, string_set, sorting, label_dic=False):
+def sample_test_split(geo, num_of_class_test, num_of_example, num_of_testing, string_set, sorting, label_dic=False, pp=False):
+    class_folders = geo.keys()
+    class_folders = random.sample(class_folders, num_of_class_test)
+    if label_dic:
+        labels_to_text = label_dic
+        labels_converter = {value:key for key, value in label_dic.items()}
+    else:
+        labels_converter = np.array(range(len(class_folders)))
+        labels_converter = dict(zip(class_folders, labels_converter))
+        labels_to_text = {value:key for key, value in labels_converter.items()}
+
+    example_set = pd.DataFrame()
+    test_set = pd.DataFrame()
+    example_label = []
+    test_label = []
+
+    # balance sampler
+    for subtype in labels_converter.keys():
+        this_exp = geo[subtype]
+        this_exp.reset_index(drop=True, inplace=True) 
+        total_colno = (this_exp.shape)[1]
+        col_nu = list(range(total_colno) )
+        random.shuffle(col_nu)
+        assert(len(col_nu) >= num_of_example+num_of_testing), [total_colno, num_of_example+num_of_testing, subtype]
+        example_ids = col_nu[0 : num_of_example]
+        ex = this_exp.iloc[:,example_ids]
+        test_ids = col_nu[num_of_example : num_of_example + num_of_testing]
+        te = this_exp.iloc[:,test_ids]
+        
+        example_set = pd.concat([example_set,ex],axis=1)
+        test_set = pd.concat([test_set, te],axis=1)
+        example_label += [labels_converter[subtype]] * num_of_example
+        test_label += [labels_converter[subtype]] * num_of_testing
+
+    test_set = test_set.transpose()
+    test_set['label'] = test_label
+    test_set = test_set.sample(frac=1)
+    test_label = test_set['label']
+    test_set = test_set.drop(columns='label')
+    test_set = test_set.transpose()
+    
+    out_ex = example_set
+    out_te = test_set
+    
+    if pp == True:
+        print(out_ex.index)
+        print(out_te.index)
+
+    out_ex = out_ex.values
+    out_te = out_te.values
+    return out_ex, example_label, out_te, test_label, labels_to_text
+
+
+
+
+def sample_test_split_old(geo, num_of_class_test, num_of_example, num_of_testing, string_set, sorting, label_dic=False, pp=False):
     class_folders = geo.keys()
     class_folders = random.sample(class_folders, num_of_class_test)
     if label_dic:
@@ -59,7 +115,6 @@ def sample_test_split(geo, num_of_class_test, num_of_example, num_of_testing, st
         test_label += [labels_converter[subtype]] * num_of_testing
     
     if string_set is not None:
-
         example_set = example_set.transpose()
         example_set = example_set.filter(items=string_set)
         example_set = example_set.transpose()
@@ -87,16 +142,20 @@ def sample_test_split(geo, num_of_class_test, num_of_example, num_of_testing, st
         out_ex.sort_index(inplace=True)
         out_te.sort_index(inplace=True)
     
+    if pp == True:
+        print(out_ex.index)
+        print(out_te.index)
+
     assert(np.all(out_ex.index == out_te.index))
+    """
     if num_of_example != 0:
         out_ex = min_max_scaler.fit_transform(out_ex)
     if num_of_testing != 0:
         out_te = min_max_scaler.fit_transform(out_te)
- 
+    """
+    out_ex = out_ex.values
+    out_te = out_te.values
     return out_ex, example_label, out_te, test_label, labels_to_text
-
-
-
 
 
 
@@ -172,6 +231,27 @@ def mean_confidence_interval(data, confidence=0.95):
     
     return m,h
 
+###
+#  PBMC #
+      ###
+def pbmc_load(pbmc_h5_dir, string_set):
+    pbmc_ann = scanpy.read_h5ad(pbmc_h5_dir)
+
+    #pbmc_df = pbmc_ann['TTTCTACTTATTCC-8'].to_df()
+    pbmc_df = pbmc_ann.to_df()
+    pbmc_df = pbmc_df.filter(items=string_set)
+    
+    out_ex = pd.DataFrame(index=string_set)
+    out_ex = out_ex.replace(np.nan,0)
+    pbmc_df = pbmc_df.transpose()
+    out_ex = pd.concat([out_ex, pbmc_df],axis=1)
+    out_ex = out_ex.replace(np.nan,0)
+    #out_ex = out_ex.iloc[:,:10]
+
+    #out_ex = min_max_scaler.fit_transform(out_ex)
+    #out_ex = out_ex.transpose()
+    #print(out_ex.shape, np.sum(out_ex[0]), np.sum(np.sum(out_ex)))
+    return out_ex
 
 ###
 #  SINGLE CELL PANCREAS DATA  #
@@ -203,7 +283,16 @@ def geo_data_loader(root_dir, pref=None, string_set=None, small_set=False):
             this_pd = this_pd.transpose()
             this_pd = this_pd.filter(items=string_set)
             this_pd = this_pd.transpose()
-        pd_list[class_name] = this_pd.transpose()
+
+            out_pd = pd.DataFrame(index=string_set)
+            out_pd = pd.concat([out_pd, this_pd],axis=1)
+            out_pd = out_pd.replace(np.nan,0)
+
+            out_pd = np.log2(out_pd+1.0)
+            # print( out_pd )
+            pd_list[class_name] = out_pd
+        else:
+            assert(False)
         #print(this_pd.shape)
     return pd_list
 

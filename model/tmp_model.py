@@ -87,7 +87,8 @@ class TMP:
         for epoch in range(self.epochs_test):
             # class balance loader
             samples, sample_labels, batches, batch_labels, label_converter \
-                = common.sample_test_split(train_data_dic, self.class_number, self.example_number, self.batch_size, gene_set, sorting)
+                = common.sample_test_split(train_data_dic, self.class_number, self.example_number, \
+                                            self.batch_size, gene_set, sorting)
             samples = torch.Tensor(samples.transpose()).float()
             batches = torch.Tensor(batches.transpose()).float()
             batch_labels = torch.LongTensor(batch_labels.values)
@@ -103,7 +104,8 @@ class TMP:
             
             for pair in zip(batch_labels.data, predict_labels.cpu().detach().data):
                 # print(label_converter[pair[0]], '->'  ,label_converter[pair[1].item()])
-                histogram.at[label_converter[pair[0].item()], label_converter[pair[1].item()]] = histogram.at[label_converter[pair[0].item()], label_converter[pair[1].item()]] + 1
+                histogram.at[label_converter[pair[0].item()], label_converter[pair[1].item()]] \
+                    = histogram.at[label_converter[pair[0].item()], label_converter[pair[1].item()]] + 1
 
         test_accuracy,h = common.mean_confidence_interval(test_accs)
         ari_accuracy,ari_h = common.mean_confidence_interval(test_aris)
@@ -123,7 +125,8 @@ class TMP:
         for epoch in range(self.epochs_test):
             # class balance loader
             samples, sample_labels, batches, batch_labels, label_converter \
-                = common.sample_test_split(train_data_dic, self.class_number, self.example_number, self.batch_size, gene_set, sorting)
+                = common.sample_test_split(train_data_dic, self.class_number, self.example_number, \
+                                            self.batch_size, gene_set, sorting)
             samples = torch.Tensor(samples.transpose()).float()
             batches = torch.Tensor(batches.transpose()).float()
             batch_labels = torch.LongTensor(batch_labels.values)
@@ -160,7 +163,8 @@ class TMP:
             for epoch in range(5):
                 # class balance loader
                 _, _, batches, batch_labels, _ \
-                    = common.sample_test_split(train_data_dic, self.class_number, 0, self.batch_size, gene_set, sorting, label_converter)
+                    = common.sample_test_split(train_data_dic, self.class_number, 0, \
+                                                self.batch_size, gene_set, sorting, label_converter)
 
                 batches = torch.Tensor(batches.transpose()).float()
                 batch_labels = torch.LongTensor(batch_labels.values)
@@ -197,7 +201,8 @@ class TMP:
            
             # class balance loader
             samples, sample_labels, batches, batch_labels, label_converter \
-                = common.sample_test_split(train_data_dic, self.class_number, self.example_number, self.batch_size, gene_set, sorting)
+                = common.sample_test_split(train_data_dic, self.class_number, self.example_number, \
+                                            self.batch_size, gene_set, sorting)
             samples = torch.Tensor(samples.transpose()).float()
             batches = torch.Tensor(batches.transpose()).float()
             batch_labels = torch.LongTensor(batch_labels.values)
