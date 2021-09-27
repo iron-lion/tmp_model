@@ -29,8 +29,8 @@ for key, group in df2.groupby('repeat'):
     ax.plot(group['class'], group[k], color='blue', linewidth=0.7, linestyle=':') 
     ax.fill_between(group['class'], group[k]-group[k+'_std'], group[k]+group[k+'_std'], facecolor='blue', alpha=0.2)
 
-ax.set_xticks([5,10,15,20,25])
-ax.set_xticklabels(('5', '10', '15', '20', '25'), fontsize=12)
+ax.set_xticks([5,8,10,15,20,25])
+ax.set_xticklabels(('5', '8', '10', '15', '20', '25'), fontsize=12)
 
 
 plt.xlabel('Number of classes')
