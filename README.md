@@ -3,7 +3,8 @@
 * [TCGA result](https://github.com/iron-lion/tmp_model#TCGA)
 * [scPancreas result](https://github.com/iron-lion/tmp_model#Single-cell_pancreas)
 
-Single-cell pancreas data run
+## Related work
+[bioRxiv: Transfer Learning Compensates Limited Data, Batch-Effects, And Technical Heterogeneity In Single-Cell Sequencing](https://doi.org/10.1101/2021.07.23.453486)
 
 ## Environment
     conda version : 4.9.2
