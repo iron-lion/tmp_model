@@ -10,7 +10,7 @@ fig, ax = plt.subplots()
 
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
-#ax.set_aspect(40)
+ax.set_aspect(38)
 
 k = 'acc'
 

@@ -10,7 +10,7 @@ fig, ax = plt.subplots()
 
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
-#ax.set_aspect(15)
+ax.set_aspect(13)
 
 k = 'acc'
 
@@ -34,4 +34,4 @@ plt.xlabel('Number of classes')
 plt.ylabel('Accuracy')
 
 plt.axis([4,26,0.0,1.01])
-plt.savefig("acc_line_class.png")
+plt.savefig("acc_line_classes.png")
