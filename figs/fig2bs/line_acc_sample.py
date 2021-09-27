@@ -12,7 +12,7 @@ ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 #ax.set_aspect(40)
 
-k = 'ari'
+k = 'acc'
 
 for key, group in df.groupby('repeat'):
 
@@ -31,7 +31,7 @@ for key, group in df2.groupby('repeat'):
 
 
 plt.xlabel('Number of samples')
-plt.ylabel(k)
+plt.ylabel('Accuracy')
 ax.set_xticks([15,30,45,60,75])
 ax.set_xticklabels(('15', '30', '45', '60', '75'), fontsize=13)
 
