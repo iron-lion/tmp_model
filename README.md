@@ -1,4 +1,6 @@
-# TMP_loader
+# TMP_model
+Transferable Molecular Pattern recognition model.
+
 <img src="https://github.com/iron-lion/tmp_model/blob/master/figs/poster_brief%20(1).png " width="400"> _Created with BioRender.com_
 
 [bioRxiv: Transfer Learning Compensates Limited Data, Batch-Effects, And Technical Heterogeneity In Single-Cell Sequencing](https://doi.org/10.1101/2021.07.23.453486)
