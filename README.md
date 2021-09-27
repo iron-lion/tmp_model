@@ -1,4 +1,9 @@
 # TMP_loader
+* [GTEx result](https://github.com/iron-lion/tmp_model#gtex)
+* [TCGA result](https://github.com/iron-lion/tmp_model#TCGA)
+* [scPancreas result](https://github.com/iron-lion/tmp_model#Single-cell_pancreas)
+
+Single-cell pancreas data run
 
 ## Environment
     conda version : 4.9.2
@@ -110,7 +115,7 @@ Case) 15 samples for all ''N'' class in TCGA dataset.
 python tcga_test.py --cuda -fe=<GTEx_FILENAME> -rn=<GTEx_FILE_NAME> -nepoch=50000 -nepoch_test=5000 -lr=0.0005 -lrS=1500 -lrG=0.5 -logb=2500 --early_stop1 --split_sample=15 --split_class=<N>
 ```
 
-## Single-cell pancreas data run
+## Single-cell_pancreas
 single-cell datasets are hard-coded in the sc_training.py file.
 
 ```python
@@ -154,7 +159,7 @@ python sc_training.py --split_sample=0 -nexample=5 -nbatch=5 -nepoch_test=5000 -
 
 ### Fine-tuning training with subset of single-cell pancreas datasets and test
 
-In the article, <S> is set to 15.
+In the article, ''S'' is set to 15.
 
 ```
 python sc_training.py --split_sample=<S> -nexample=5 -nbatch=5 -nepoch=50000 -logb=200 -nepoch_test=2500 -lr=0.0001 -lrS=10000 -fe=<FILE_NAME> -rn=<FILE_NAME>
