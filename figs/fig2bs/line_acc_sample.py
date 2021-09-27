@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 df = pd.read_csv("data_tf_samples.txt", sep='\t')
 df2 = pd.read_csv("data_samples.txt", sep='\t')
 
-plt.rcParams.update({'font.size': 14})
+plt.rcParams.update({'font.size': 13})
 fig, ax = plt.subplots()
 
 ax.spines['top'].set_visible(False)
