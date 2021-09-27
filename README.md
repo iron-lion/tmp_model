@@ -1,10 +1,20 @@
 # TMP_loader
-* [GTEx result](https://github.com/iron-lion/tmp_model#gtex)
-* [TCGA result](https://github.com/iron-lion/tmp_model#TCGA)
-* [scPancreas result](https://github.com/iron-lion/tmp_model#Single-cell_pancreas)
+<img src="https://github.com/iron-lion/tmp_model/blob/master/figs/poster_brief%20(1).png " width="400"> _Created with BioRender.com_
 
-## Related work
 [bioRxiv: Transfer Learning Compensates Limited Data, Batch-Effects, And Technical Heterogeneity In Single-Cell Sequencing](https://doi.org/10.1101/2021.07.23.453486)
+
+
+## Reproducibility
+* Models pretrained with GTEx and TCGA are available in this [link](https://zenodo.org/record/5529755#.YVGe4bozawF).
+* Datasets used in this study are described in the [data folder](https://github.com/iron-lion/tmp_model/tree/master/data).
+* All processed datasheets and figure generating codes are in the [figures folder](https://github.com/iron-lion/tmp_model/tree/master/figs)
+
+Details
+1. [GTEx result](https://github.com/iron-lion/tmp_model#gtex)
+2. [TCGA result](https://github.com/iron-lion/tmp_model#TCGA)
+3. [scPancreas result](https://github.com/iron-lion/tmp_model#Single-cell_pancreas)
+
+
 
 ## Environment
     conda version : 4.9.2
@@ -19,12 +29,6 @@
     torch : 1.9.0a0+gita80b215 
 
 
-## Reproducibility
-Models pretrained with GTEx and TCGA are available in this [link](https://zenodo.org/record/5529755#.YVGe4bozawF).
-
-Datasets used in this study are described in the [data folder](https://github.com/iron-lion/tmp_model/tree/master/data).
-
-All processed datasheets and figure generating codes are in the [figures folder](https://github.com/iron-lion/tmp_model/tree/master/figs)
 
 ## GTEx
 
