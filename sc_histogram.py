@@ -29,6 +29,7 @@ def main():
     string_set.sort()
     tmp = TMP(params, len(string_set), e_dim_1 = 4000, e_dim_2 = 2000, e_dim_3 = 1000, r_dim_1 = 500, r_dim_2 = 100)
 
+    # training code block, fine-tune
     geo = common.geo_data_loader(TRAIN_DIR, 0, string_set)
 
     if CAT_LIMIT > 0:
@@ -36,7 +37,8 @@ def main():
     
     PAN_LIST.remove(TRAIN_DIR)
     tmp.train(geo, string_set, True)
-
+    # training code block end
+    
     test_all = {}
     i = 0
     for target_dir in PAN_LIST:

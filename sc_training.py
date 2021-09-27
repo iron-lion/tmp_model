@@ -29,6 +29,7 @@ def main():
     string_set.sort()
     tmp = TMP(params, len(string_set), e_dim_1 = 4000, e_dim_2 = 2000, e_dim_3 = 1000, r_dim_1 = 500, r_dim_2 = 100)
     
+    # training code block, fine-tune
     geo = common.geo_data_loader(TRAIN_DIR, 0, string_set)
 
     if params.split_sample > 0:
@@ -37,6 +38,7 @@ def main():
     tmp.train(geo, string_set, False)
 
     PAN_LIST.remove(TRAIN_DIR)
+    # training code block end
     
     i = 0
     for target_dir in PAN_LIST:

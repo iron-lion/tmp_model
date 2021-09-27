@@ -165,3 +165,11 @@ In the article, ''S'' is set to 15.
 ```
 python sc_training.py --split_sample=<S> -nexample=5 -nbatch=5 -nepoch=50000 -logb=200 -nepoch_test=2500 -lr=0.0001 -lrS=10000 -fe=<FILE_NAME> -rn=<FILE_NAME>
 ```
+
+
+### Draw heatmap of few-shot classification result with single-cell Pancreas dataset.
+For N-way K-shot test, set ''N'' and ''K'' to (5, 5), (10, 5), or (20, 5).
+```
+python sc_histogram.py -nexample=<K> -nbatch=5 -nclass=<N> -nepoch_test=5000 -fe=<FILE_NAME> -rn=<FILE_NAME>
+```
+
