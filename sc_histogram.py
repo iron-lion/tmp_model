@@ -9,11 +9,11 @@ from model import common as common
 from model.tmp_model import TMP
 from args_parser import get_parser
 
-BARON_DIR = str("./data/scPan/baron/")
-MURARO_DIR = str("./data/scPan/muraro/")
-XIN_DIR = str("./data/scPan/xin/")
-SEG_DIR = str("./data/scPan/segerstolpe/")
-WANG_DIR =  str("./data/scPan/wang/")
+BARON_DIR = str("./data/scPan/baron/CLASS_WISE/")
+MURARO_DIR = str("./data/scPan/muraro/CLASS_WISE/")
+XIN_DIR = str("./data/scPan/xin/CLASS_WISE/")
+SEG_DIR = str("./data/scPan/segerstolpe/CLASS_WISE/")
+WANG_DIR =  str("./data/scPan/wang/CLASS_WISE/")
 
 PAN_LIST = [BARON_DIR, MURARO_DIR, XIN_DIR, SEG_DIR, WANG_DIR]
 TRAIN_DIR = BARON_DIR
@@ -45,7 +45,7 @@ def main():
         testgeo = common.geo_data_loader(target_dir, i, string_set, False)
         test_all.update(testgeo)
     print(test_all.keys())
-    tmp.test_with_histogram(test_all, string_set, True, 'gtex_15_baron_105_tmp') #output historgram file name
+    tmp.test_with_histogram(test_all, string_set, True, 'gtex_'+str(params.split_sample)+'_baron_tmp') #output historgram file name
     
 
 if __name__ == '__main__':

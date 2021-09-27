@@ -149,11 +149,13 @@ single-cell datasets are hard-coded in the sc_training.py file.
 ```
 Make it skip training codeblock.
 ```
-python sc_training.py --split_sample=0 -nexample=5 -nbatch=5 -nepoch_test=5000 -fe=<GTEx_FILE_NAME> -rn=<GTEx_File_NAME>
+python sc_training.py --split_sample=0 -nexample=5 -nbatch=5 -nepoch_test=5000 -fe=<GTEx_FILE_NAME> -rn=<GTEx_FilE_NAME>
 ```
 
 ### Fine-tuning training with subset of single-cell pancreas datasets and test
+
+In the article, <S> is set to 15.
+
 ```
-python sc_training.py --split_sample=15 -nexample=5 -nbatch=5 -nepoch=500 -
-logb=25 -nepoch_test=50 -lr=0.0001 -fe=/home/yj/gtex_nonneg_minmax_fr_18000_4_2_1_05_01.300000 -rn=/home/yj/gtex_nonneg_minmax_rl_18000_4_2_1_05_01.300000
+python sc_training.py --split_sample=<S> -nexample=5 -nbatch=5 -nepoch=50000 -logb=200 -nepoch_test=2500 -lr=0.0001 -lrS=10000 -fe=<FILE_NAME> -rn=<FILE_NAME>
 ```
