@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 df = pd.read_csv("data_tf_samples.txt", sep='\t')
 df2 = pd.read_csv("data_samples.txt", sep='\t')
 
-plt.rcParams.update({'font.size': 13})
+plt.rcParams.update({'font.size': 12})
 fig, ax = plt.subplots()
 
 ax.spines['top'].set_visible(False)
@@ -31,9 +31,9 @@ for key, group in df2.groupby('repeat'):
 
 
 plt.xlabel('Number of samples')
-plt.ylabel('Accuracy')
+plt.ylabel('Accuracy', fontsize=14)
 ax.set_xticks([15,30,45,60,75])
-ax.set_xticklabels(('15', '30', '45', '60', '75'), fontsize=13)
+ax.set_xticklabels(('15', '30', '45', '60', '75'), fontsize=12)
 
 
 plt.axis([11,79,0.0,1.01])
