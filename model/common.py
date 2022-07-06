@@ -11,8 +11,7 @@ min_max_scaler = preprocessing.MinMaxScaler()
 
 
 # <- todo
-predefined_col_order = "./data/col_index"
-string_gene_list_pwd = "./data/genesort_string_hit.txt"
+#string_gene_list_pwd = "../data/genesort_string_hit.txt"
 # ->
 
 def sample_test_split(geo, num_of_class_test, num_of_example, num_of_testing, string_set, sorting, label_dic=False, pp=False):
@@ -159,16 +158,7 @@ def sample_test_split_old(geo, num_of_class_test, num_of_example, num_of_testing
 
 
 
-def col_order_load(file_path=predefined_col_order):
-    headers = []
-    with open(predefined_col_order) as open_fd:
-        data = csv.reader(open_fd, delimiter=' ')
-        headers = headers + [rows[0] for rows in data]
-    
-    return headers
-
-
-def string_gene_symbol_list_load(entrez):
+def string_gene_symbol_list_load(string_gene_list_pwd, entrez):
     string_set = []
     dic = {}
     with open(string_gene_list_pwd) as open_fd:
@@ -183,7 +173,7 @@ def string_gene_symbol_list_load(entrez):
     return string_set
 
 
-def sorted_string_gene_list_load(gene_filter=None):
+def sorted_string_gene_list_load(string_gene_list_pwd, gene_filter=None):
     string_set = []
     with open(string_gene_list_pwd) as open_fd:
         data = csv.reader(open_fd, delimiter=" ")
@@ -196,7 +186,7 @@ def sorted_string_gene_list_load(gene_filter=None):
     return string_set
 
 
-def string_gene_set_load(gene_filter=None):
+def string_gene_set_load(string_gene_list_pwd, gene_filter=None):
     string_set = set()
     with open(string_gene_list_pwd) as open_fd:
         data = csv.reader(open_fd, delimiter=" ")
@@ -209,7 +199,7 @@ def string_gene_set_load(gene_filter=None):
     return string_set
 
 
-def string_symbol_set_load(gene_filter=None):
+def string_symbol_set_load(string_gene_list_pwd, gene_filter=None):
     string_set = set()
     with open(string_gene_list_pwd) as open_fd:
         data = csv.reader(open_fd, delimiter=" ")
@@ -288,8 +278,10 @@ def geo_data_loader(root_dir, pref=None, string_set=None, small_set=False):
             out_pd = pd.concat([out_pd, this_pd],axis=1)
             out_pd = out_pd.replace(np.nan,0)
 
-            out_pd = np.log2(out_pd+1.0)
-            # print( out_pd )
+            out_pd = out_pd.divide(out_pd.sum(0), axis = 1).mul(20000)          
+            out_pd = out_pd.replace(np.nan,0)
+
+            #out_pd = np.log2(out_pd+1.0)
             pd_list[class_name] = out_pd
         else:
             assert(False)
