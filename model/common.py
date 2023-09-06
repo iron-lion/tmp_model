@@ -2,7 +2,7 @@ import numpy as np
 import scipy as sp
 import pandas as pd
 import scipy.stats
-import scanpy
+#import scanpy
 import csv
 import glob
 import random
@@ -11,8 +11,7 @@ min_max_scaler = preprocessing.MinMaxScaler()
 
 
 # <- todo
-predefined_col_order = "./data/col_index"
-string_gene_list_pwd = "./data/genesort_string_hit.txt"
+#string_gene_list_pwd = "./data/genesort_string_hit.txt"
 # ->
 
 
@@ -103,16 +102,7 @@ def sample_test_split(geo, num_of_class_test, num_of_example, num_of_testing, st
 
 
 
-def col_order_load(file_path=predefined_col_order):
-    headers = []
-    with open(predefined_col_order) as open_fd:
-        data = csv.reader(open_fd, delimiter=' ')
-        headers = headers + [rows[0] for rows in data]
-    
-    return headers
-
-
-def string_gene_symbol_list_load(entrez):
+def string_gene_symbol_list_load(string_gene_list_pwd, entrez):
     string_set = []
     dic = {}
     with open(string_gene_list_pwd) as open_fd:
@@ -127,7 +117,7 @@ def string_gene_symbol_list_load(entrez):
     return string_set
 
 
-def sorted_string_gene_list_load(gene_filter=None):
+def sorted_string_gene_list_load(string_gene_list_pwd, gene_filter=None):
     string_set = []
     with open(string_gene_list_pwd) as open_fd:
         data = csv.reader(open_fd, delimiter=" ")
@@ -140,7 +130,7 @@ def sorted_string_gene_list_load(gene_filter=None):
     return string_set
 
 
-def string_gene_set_load(gene_filter=None):
+def string_gene_set_load(string_gene_list_pwd, gene_filter=None):
     string_set = set()
     with open(string_gene_list_pwd) as open_fd:
         data = csv.reader(open_fd, delimiter=" ")
@@ -153,7 +143,7 @@ def string_gene_set_load(gene_filter=None):
     return string_set
 
 
-def string_symbol_set_load(gene_filter=None):
+def string_symbol_set_load(string_gene_list_pwd, gene_filter=None):
     string_set = set()
     with open(string_gene_list_pwd) as open_fd:
         data = csv.reader(open_fd, delimiter=" ")
