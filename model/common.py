@@ -2,7 +2,7 @@ import numpy as np
 import scipy as sp
 import pandas as pd
 import scipy.stats
-import scanpy
+#import scanpy
 import csv
 import glob
 import random
@@ -10,9 +10,7 @@ from sklearn import preprocessing
 min_max_scaler = preprocessing.MinMaxScaler()
 
 
-# <- todo
-#string_gene_list_pwd = "../data/genesort_string_hit.txt"
-# ->
+#string_gene_list_pwd = "./data/genesort_string_hit.txt"
 
 
 def sample_test_split(geo, num_of_class_test, num_of_example, num_of_testing, string_set, sorting, label_dic=False, pp=False):

@@ -15,6 +15,7 @@ class TCGALoader():
         self.type_num  = 0
         self.type_list = []
         self.path_dic  = {}
+        self.file_dic = []
         self.geo = {}
 
     def initial_work(self):
@@ -32,6 +33,7 @@ class TCGALoader():
         
         self.load_all()
         del(self.file_dic)
+        print(self.geo)
 
 
     def tcga_read_prepare(self, is_normal=False):
@@ -169,11 +171,12 @@ class TCGALoader():
 
 if __name__=='__main__':
     import common as common
-    string_set = common.string_symbol_set_load(None)
+    spwd = "./data/genesort_string_hit.txt"
+    string_set = common.string_symbol_set_load(spwd)
     string_set = list(string_set)
     string_set.sort()
-    string_set = common.sorted_string_gene_list_load(string_set)
+    string_set = common.sorted_string_gene_list_load(spwd, string_set)
     
-    tcga = TCGALoader('/home/parky/data/TCGA/', string_set)
-    #tcga.initial_work()
-    tcga.read_all()
+    tcga = TCGALoader('./data/TCGA/', string_set)
+    tcga.initial_work()
+    #tcga.read_all()
