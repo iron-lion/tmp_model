@@ -18,13 +18,15 @@ WANG_DIR =  str("./data/scPan/wang/CLASS_WISE/")
 PAN_LIST = [BARON_DIR, MURARO_DIR, XIN_DIR, SEG_DIR, WANG_DIR]
 TRAIN_DIR = BARON_DIR
 
+string_gene_list_pwd = "./data/genesort_string_hit.txt"
+
 
 def main():
     params = get_parser().parse_args()
     print(params)
     params.device = 'cuda:0' if torch.cuda.is_available() and params.cuda else 'cpu'
 
-    string_set = common.string_symbol_set_load(None)
+    string_set = common.string_symbol_set_load(string_gene_list_pwd, None)
     string_set = list(string_set)
     string_set.sort()
     tmp = TMP(params, len(string_set), e_dim_1 = 4000, e_dim_2 = 2000, e_dim_3 = 1000, r_dim_1 = 500, r_dim_2 = 100)

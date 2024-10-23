@@ -9,16 +9,17 @@ from model import tcga_loader as tcga_loader
 from args_parser import get_parser
 
 
+string_gene_list_pwd = "./data/genesort_string_hit.txt"
+
+
 def main():
     params = get_parser().parse_args()
     print(params)
     params.device = 'cuda:0' if torch.cuda.is_available() and params.cuda else 'cpu'
     
-    string_set = common.string_symbol_set_load(None)
-    string_set = common.sorted_string_gene_list_load(string_set)
+    string_set = common.string_symbol_set_load(string_gene_list_pwd, None)
+    string_set = common.sorted_string_gene_list_load(string_gene_list_pwd, string_set)
  
-    print(params.split_sample, params.split_class)
-    exit()
     tmp = TMP(params, len(string_set), e_dim_1 = 4000, e_dim_2 = 2000, e_dim_3 = 1000, r_dim_1 = 500, r_dim_2 = 100)
 
     tcga = tcga_loader.TCGALoader('/home/parky/data/TCGA/', string_set)

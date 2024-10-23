@@ -22,7 +22,6 @@ class TMP:
         self.relation_first = r_dim_1
         self.relation_second = r_dim_2
         self.feature_dim = e_dim_3
-        self.init_model(c_len, e_dim_1, e_dim_2, e_dim_3, r_dim_1, r_dim_2, params.device)
 
         self.device = params.device
         self.epochs = params.epochs
@@ -35,6 +34,8 @@ class TMP:
         self.batch_size = params.batch_size
         self.feature_file_name = params.fe_filename
         self.relation_file_name = params.rn_filename
+        
+        self.init_model(c_len, e_dim_1, e_dim_2, e_dim_3, r_dim_1, r_dim_2, params.device)
         self.load_model(self.feature_file_name, self.relation_file_name)
 
         self.save = params.save
@@ -51,14 +52,14 @@ class TMP:
     def load_model(self, fn_name, rn_name):
         if os.path.exists(fn_name):
             self.feature_file_name = fn_name
-            self.feature_encoder.load_state_dict(torch.load(fn_name))
+            self.feature_encoder.load_state_dict(torch.load(fn_name, map_location=torch.device(self.device)))
             print("load feature encoder success!", fn_name)
         else:
             print("fail to load feature encoder")
             #exit('EXIT: cannot find feature encoder', fn_name)
         if os.path.exists(rn_name):
             self.relation_file_name = rn_name
-            self.relation_network.load_state_dict(torch.load(rn_name))
+            self.relation_network.load_state_dict(torch.load(rn_name, map_location=torch.device(self.device)))
             print("\nload relation network success!", rn_name)
         else:
             print("fail to load relation network")
@@ -194,6 +195,11 @@ class TMP:
                                                                     self.lr)
         feature_encoder_scheduler = StepLR(feature_encoder_optim,step_size=self.lrS,gamma=self.lrG) # decay LR
         relation_network_scheduler = StepLR(relation_network_optim,step_size=self.lrS,gamma=self.lrG) # decay LR
+
+        """       
+        for par in self.feature_encoder.parameters():
+            par.requires_grad = False
+        """
 
         for epoch in range(self.epochs):
             feature_encoder_optim.step()
